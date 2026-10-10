@@ -1,5 +1,6 @@
 import { BookOpen, Calendar, Clock, ArrowRight } from 'lucide-react';
 import { BLOG_POSTS, getBrandBlogImage } from '@/data/blogPosts';
+import { optimizeCloudinary } from '@/utils/imageOptimizer';
 
 interface HomeBlogSectionProps {
   brandSlug?: string;
@@ -78,6 +79,7 @@ export function HomeBlogSection({
             const postImage = isBrand
               ? getBrandBlogImage(brandSlug, post.slug || idx, post.image)
               : post.image;
+            const optimizedPostImage = optimizeCloudinary(postImage, { width: 600, quality: 'auto:good' });
             const postHref = isBrand
               ? `/${brandSlug?.replace(/^\//, '')}/blog/${post.slug}`
               : `/blog/${post.slug}`;
@@ -89,8 +91,10 @@ export function HomeBlogSection({
               >
                 <a href={postHref} className="relative h-48 sm:h-52 w-full bg-slate-100 block overflow-hidden">
                   <img
-                    src={postImage}
+                    src={optimizedPostImage}
                     alt={post.title}
+                    width={600}
+                    height={400}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   />

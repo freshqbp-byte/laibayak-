@@ -62,6 +62,19 @@ export function getCloudinaryThumbnail(url: string, size: number = 200): string 
 }
 
 /**
+ * Generate a responsive srcset from Cloudinary URL
+ */
+export function generateCloudinarySrcSet(
+  url: string,
+  widths: number[] = [600, 900, 1200]
+): string {
+  if (!url || !url.includes('res.cloudinary.com')) return '';
+  return widths
+    .map((w) => `${optimizeCloudinary(url, { width: w, quality: 'auto:good' })} ${w}w`)
+    .join(', ');
+}
+
+/**
  * Preload an image (browser cache me daalne ke liye)
  */
 export function preloadImage(src: string): void {

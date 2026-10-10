@@ -138,7 +138,8 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       : brand.id === 'ao-smith' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789748961/IMG-20260918-WA0071_woclww.jpg'
       : 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666091/file_00000000087882078f47eb6ab54f5d99_aeo7v5.png'
   );
-  const heroImageToDisplay = optimizeCloudinary(heroImageRaw, { width: 800 });
+  const heroImageToDisplay = optimizeCloudinary(heroImageRaw, { width: 1200, quality: 'auto:good' });
+  const heroImageMobile = optimizeCloudinary(heroImageRaw, { width: 600, quality: 'auto:good' });
 
   const bottomBannerRaw = brand.bottomBannerImage || (
     brand.id === 'ro-service-24x7' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789744714/file_00000000c0e082118f500d75d9418d25_a6woez.png'
@@ -148,7 +149,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       : brand.id === 'aquaguard' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742391/IMG-20260918-WA0044_mt8t6n.jpg'
       : 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789674504/IMG-20260918-WA0002_whpvlb.jpg'
   );
-  const bottomBannerToDisplay = optimizeCloudinary(bottomBannerRaw, { width: 1200 });
+  const bottomBannerToDisplay = optimizeCloudinary(bottomBannerRaw, { width: 1200, quality: 'auto:good' });
 
   const toggleFaq = (index: number) => setOpenFaqs((prev) => ({ ...prev, [index]: !prev[index] }));
   const toggleBlog = () => {
@@ -231,7 +232,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       : brand.id === 'livpure' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789743886/IMG-20260918-WA0053_jzf7ky.jpg'
       : brand.id === 'aquaguard' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789743886/IMG-20260918-WA0050_ffapvn.jpg'
       : 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789669453/IMG-20260917-WA0015_ptidj8.jpg'
-  ), { width: 450 });
+  ), { width: 450, quality: 'auto:good' });
 
   const servicesList = [
     { title: `Installation of all ${brand.name} models`, description: `Professional doorstep installation for all ${brand.name} RO, UV, and UF water purifiers.` },
@@ -372,7 +373,11 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <img
               src={heroImageToDisplay}
+              srcSet={`${heroImageMobile} 600w, ${heroImageToDisplay} 1200w`}
+              sizes="100vw"
               alt={`${brand.name} RO Service Bangalore`}
+              width={1200}
+              height={630}
               loading="eager"
               fetchPriority="high"
               decoding="async"
@@ -455,9 +460,9 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={bookingFormRef} id="booking-section" className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white relative shadow-2xl overflow-hidden border border-blue-900/50 bg-[#0c3975]">
             <img
-              src={optimizeCloudinary("https://res.cloudinary.com/dieq3fjuv/image/upload/v1789668617/file_00000000aa70820b93ba0ee61bc6377c_prruge.png", { width: 900 })}
+              src={optimizeCloudinary("https://res.cloudinary.com/dieq3fjuv/image/upload/v1789668617/file_00000000aa70820b93ba0ee61bc6377c_prruge.png", { width: 900, quality: 'auto:good' })}
               alt="Booking Background"
-              loading="eager"
+              loading="lazy"
               className="absolute inset-0 w-full h-full object-cover object-center sm:object-[center_right]"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0c2b5e]/95 via-[#0c2b5e]/80 to-[#0c2b5e]/60 sm:from-[#0c2b5e]/80 sm:via-[#0c2b5e]/30 sm:to-transparent pointer-events-none" />
@@ -520,7 +525,8 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
           </div>
         </div>
       </section>
-            {/* STATS SECTION */}
+
+      {/* STATS SECTION */}
       <section className="py-10 sm:py-16 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-8">Our {brand.name} Water Purifier Service in Bangalore</h2>
